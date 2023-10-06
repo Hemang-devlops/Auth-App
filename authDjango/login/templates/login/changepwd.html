@@ -1,0 +1,22 @@
+{% extends 'core/index.html' %}
+{% block content %}
+<div class="form-group text-white m-5">
+    <h1 class="text-warning mb-5 border-bottom">
+        Change Password
+    </h1>
+    <form action="{% url 'changepwd' %}" class="form-group" method="post">
+        {% csrf_token %}
+        {% if form.non_field_errors %}
+        {% for error in form.non_field_errors %}
+        <section class="alert alert-danger">{{error}}</section>
+        {% endfor %}
+        {% endif %}
+        <br>
+        {% for fm in form %}
+        {% if fm.errors %}<section class="alert alert-danger">{{fm.errors|striptags}}</section>{% endif%}
+        {{fm.label_tag}}{{fm}}<br>
+        {% endfor %}
+        <input type="submit" value="Change Password" class="btn btn-primary">
+    </form>
+</div>
+{% endblock content %}
